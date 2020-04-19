@@ -1,36 +1,70 @@
+//Invariante: Salario >=0
 package com.ORFA.x00038619;
+
+import javax.swing.*;
 
 //Clase estatica
 public final class CalculadoraImpuestos
 {
-    //Atributo estaticos.
+    //Atributos de clase
     private static double totalRenta, totalISSS, totalAFP;
 
     private CalculadoraImpuestos(){}
 
-    //Sugerencia: utilizar 'instanceof' en el metodo calcularPago
-    //Ya que depende del tipo de Empleado
-
-    //Metodo que retornara el salario menos renta, ISSS, AFP. Dependiendo del tipo de empleado
     public static double calcularPago  (Empleado empleado) //Variable de tipo objeto
     {
-        //Servicio Profesional
-        totalRenta = empleado.salario * 0.1;
-        empleado.setSalario(empleado.salario - totalRenta);
-        return empleado.getSalario();
+        //if para tipo de empleado
+        if (empleado instanceof ServicioProfesional)
+        {
+            /**Servicio Profesional*/
 
-        //PlazaFija
-        double Resatante = 0;
-        totalAFP = empleado.salario * 0.0625;
-        totalISSS = empleado.salario * 0.03;
-        Resatante = (empleado.salario - totalAFP - totalISSS);
+            totalRenta = empleado.salario * 0.1;
+            empleado.setSalario(empleado.salario - totalRenta);
+            return empleado.getSalario();
+        }
+        else
+        {
+            /**Plaza Fija*/
+            double Resatante = 0;
+            totalAFP = empleado.salario * 0.0625;
+            totalISSS = empleado.salario * 0.03;
+            Resatante = (empleado.salario - totalAFP - totalISSS);
 
-        //Falta calcular renta...
+
+            //Calcular renta
+            //Rango A:
+            if (Resatante >= 0.01 && Resatante <= 472.00) {
+                empleado.setSalario(Resatante);
+
+            }
+
+            //Rango B:
+            else if (Resatante <= 472.01 && Resatante <= 895.24) {
+                totalRenta = 0.1 * (Resatante - 472) + 17.67;
+                empleado.setSalario(Resatante - totalRenta);
+            }
+
+            //Rango C:
+            else if (Resatante >= 895.25 && Resatante <= 2038.10) {
+                totalRenta = 0.2 * (Resatante - 895.24) + 60;
+                empleado.setSalario(Resatante - totalRenta);
+            }
+
+            //Rango D:
+            else if (Resatante >= 2038.11) {
+                totalRenta = 0.3 * (Resatante - 2038.10) + 288.57;
+                empleado.setSalario(Resatante - totalRenta);
+            }
+            return empleado.getSalario();
+        }
     }
+
 
     public static void mostrarTotales()//mostrar totales de AFP, ISSS, RENTA
     {
+        JOptionPane.showMessageDialog(null, "AFP: "+ totalAFP +"$\nISSS: "+totalISSS+"$\nRenta: "+totalRenta+"$");
 
     }
+
 
 }
