@@ -5,13 +5,10 @@ import javax.swing.*;
 public class Main
 {
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws NegativeNumberExeption {
 
         byte op = 0;
-        String nombre, puesto;
-        double salario=0;
-
+        
         do
         {
             op = (byte) Integer.parseInt(JOptionPane.showInputDialog(null, menu()));
@@ -20,26 +17,17 @@ public class Main
                 case 0: break;
                 case 1:
                     //Servicio Profesional
-                    nombre = JOptionPane.showInputDialog(null, "Nombre: ");
-                    puesto = JOptionPane.showInputDialog(null, "Puesto: ");
-                    salario = Double.parseDouble(JOptionPane.showInputDialog(null, "Salario: "));
-                    int mesesContrato = Integer.parseInt(JOptionPane.showInputDialog(null, "Meses de contrato: "));
                     //Creando objeto tipo servicioProfesional
-                    ServicioProfesional servicioProfesional = new ServicioProfesional(nombre, puesto, salario, mesesContrato);
+                    ServicioProfesional servicioProfesional = new ServicioProfesional("Omar", "Accesor", 700, 5);
                     JOptionPane.showMessageDialog(null, "Salario Final: "+CalculadoraImpuestos.calcularPago(servicioProfesional)+"$");
                     //Metodo (mostrarTotales) de clase (CalculadoraImpuestos)
                     CalculadoraImpuestos.mostrarTotales();
-
                     break;
 
                 case 2:
-                    //Plaza
-                    nombre = JOptionPane.showInputDialog(null, "Nombre: ");
-                    puesto = JOptionPane.showInputDialog(null, "Puesto: ");
-                    salario = Double.parseDouble(JOptionPane.showInputDialog(null, "Salario: "));
-                    int extension = Integer.parseInt(JOptionPane.showInputDialog(null, "Extension: "));
+                    //PlazaFija
                     //Creando objeto tipo PlazaFija
-                    PlazaFija plazaFija1 = new PlazaFija(nombre, puesto, salario, extension);
+                    PlazaFija plazaFija1 = new PlazaFija("Omar", "Ingeniero Informatico", 3000, 22881569);
                     JOptionPane.showMessageDialog(null, "Salario Final: "+CalculadoraImpuestos.calcularPago(plazaFija1)+"$");
                     //Metodo (mostrarTotales) de clase (CalculadoraImpuestos)
                     CalculadoraImpuestos.mostrarTotales();

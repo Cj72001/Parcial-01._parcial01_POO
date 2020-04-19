@@ -11,19 +11,23 @@ public final class CalculadoraImpuestos
 
     private CalculadoraImpuestos(){}
 
-    public static double calcularPago  (Empleado empleado) //Variable de tipo objeto
+    public static double calcularPago  (Empleado empleado) throws NegativeNumberExeption //Variable de tipo objeto
     {
+        //Invariante: Salario < 0
+        if (empleado.salario<0)
+            throw new NegativeNumberExeption("LA CANTIDAD ES MENOR A 0");
+
         //if para tipo de empleado
         if (empleado instanceof ServicioProfesional)
         {
             /**Servicio Profesional*/
-
             totalRenta = empleado.salario * 0.1;
             empleado.setSalario(empleado.salario - totalRenta);
             return empleado.getSalario();
         }
         else
         {
+
             /**Plaza Fija*/
             double Resatante = 0;
             totalAFP = empleado.salario * 0.0625;
